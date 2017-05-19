@@ -24,7 +24,6 @@ import com.microstrategy.web.beans.PromptsBean;
 import com.microstrategy.web.beans.RWBean;
 import com.microstrategy.web.beans.WebBeanException;
 import com.microstrategy.web.objects.WebAttribute;
-import com.microstrategy.web.objects.WebDocumentInstance;
 import com.microstrategy.web.objects.WebElement;
 import com.microstrategy.web.objects.WebElements;
 import com.microstrategy.web.objects.WebElementsObjectNode;
@@ -59,10 +58,11 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
         String LVL2_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL2");
         String LVL3_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL3");
         String LVL4_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL4");
+        /* Test Data ***********
         LVL1_PA = "2015~2016";
         LVL2_PA = "2016 Q1~2016 Q2";
         LVL3_PA = "Feb 2016~Apr 2016~Mar 2016";
-        LVL4_PA = "2/3/2016~4/5/2016";
+        LVL4_PA = "2/3/2016~4/5/2016"; */
     	RWBean rwb = (RWBean) page.getChildByClass(RWBean.class);
     	try {
     		WebObjectsFactory factory = page.getAppContext().getAppSessionManager().getActiveSession().getFactory();
@@ -82,7 +82,7 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
 				  WebPrompt prompt = prompts.get(i);
 				  //Match the prompt we need to populate.
                   if(PromptGUID.equalsIgnoreCase(prompt.getID())){
-                	  System.out.println("Good Hit" + prompt.getPromptType());
+                	  //System.out.println("Good Hit" + prompt.getPromptType());
                 	  WebExpressionPrompt expPrompt = (WebExpressionPrompt) prompt;  
                 	  WebExpression exp = expPrompt.getAnswer();
                 	  exp.clear();
@@ -132,9 +132,7 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
             WebElement element = null;
             for(int elem=0;elem<elements.size();elem++){
                 element = elements.get(elem);
-                System.out.println(element.getDisplayName());
                 if (LVLX_PA.contains(element.getDisplayName())){ 
-              	 System.out.println("Inside addition");
                    elementsNode.getElements().add(element.getElementID(), element.getDisplayName());
                 }
             }
