@@ -14,8 +14,6 @@
  *
  *
  */
-
-
 package com.coke;
 
 import java.util.ResourceBundle;
@@ -43,9 +41,7 @@ import com.microstrategy.web.objects.rw.RWInstance;
 import com.microstrategy.webapi.EnumDSSXMLExpressionType;
 import com.microstrategy.webapi.EnumDSSXMLFunction;
 
-
 public class ApplyFilterCriteria extends AbstractAppAddOn { 
-
     
     public String getAddOnDescription() {
         return "";
@@ -58,10 +54,16 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
     private static final String LVL4_ATTRIBUTE_GUID = "LVL4_ATTRIBUTE_GUID";
     
     public void preCollectData(PageComponent page) {
-
-    	System.out.println("Inside PreCollect");
+    	// Get Values of Saved Session variables.
+        String LVL1_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL1");
+        String LVL2_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL2");
+        String LVL3_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL3");
+        String LVL4_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL4");
+        LVL1_PA = "2015~2016";
+        LVL2_PA = "2016 Q1~2016 Q2";
+        LVL3_PA = "Feb 2016~Apr 2016~Mar 2016";
+        LVL4_PA = "2/3/2016~4/5/2016";
     	RWBean rwb = (RWBean) page.getChildByClass(RWBean.class);
-    	
     	try {
     		WebObjectsFactory factory = page.getAppContext().getAppSessionManager().getActiveSession().getFactory();
     	    WebObjectSource oSource = factory.getObjectSource();
@@ -78,35 +80,31 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
 			  String Lvl4_GUID = (String) props.getObject(LVL4_ATTRIBUTE_GUID);
 			  for(int i=0;i<prompts.size();i++){
 				  WebPrompt prompt = prompts.get(i);
+				  //Match the prompt we need to populate.
                   if(PromptGUID.equalsIgnoreCase(prompt.getID())){
-                	  System.out.println("Positive Hit" + prompt.getPromptType());
+                	  System.out.println("Good Hit" + prompt.getPromptType());
                 	  WebExpressionPrompt expPrompt = (WebExpressionPrompt) prompt;  
                 	  WebExpression exp = expPrompt.getAnswer();
                 	  exp.clear();
                 	  WebOperatorNode root = (WebOperatorNode) exp.getRootNode();
                 	  root.setExpressionType(EnumDSSXMLExpressionType.DssXmlFilterBranchQual);
                       root.setFunction(EnumDSSXMLFunction.DssXmlFunctionAnd);
-                      WebOperatorNode leftbranchoperator = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
-                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
                       //Level 1 Hierarchy
-                      WebObjectInfo oLvl1 = oSource.getObject(Lvl1_GUID,12,true);
-                      WebAttribute Hier_Lvl1_Att = (WebAttribute)oLvl1;
-                      exp.createShortcutNode(Hier_Lvl1_Att,leftbranchoperator );
-                      WebElementsObjectNode elementsNode = exp.createElementsObjectNode(Hier_Lvl1_Att, leftbranchoperator);
-                      Hier_Lvl1_Att.populate();
-                      WebElements elements = Hier_Lvl1_Att.getElementSource().getElements();
-                      
-                      WebElement element = null;
-                      for(int elem=0;elem<elements.size();elem++){
-                          element = elements.get(elem);
-                          System.out.println(element.getDisplayName());
-                          if (element.getDisplayName().equalsIgnoreCase("2015")){ 
-                        	 System.out.println("Inside addition");
-                             elementsNode.getElements().add(element.getElementID(), element.getDisplayName());
-                          }
-                      }
-                  //    expPrompt.setAnswer(exp);                  
-                  //    prompt.answerPrompt();
+                      WebOperatorNode branchoperator1 = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
+                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
+                      PopulatePrompts(Lvl1_GUID,oSource,branchoperator1,exp,LVL1_PA);
+                      //Level 2 Hierarchy
+                      WebOperatorNode branchoperator2 = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
+                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
+                      PopulatePrompts(Lvl2_GUID,oSource,branchoperator2,exp,LVL2_PA);
+                      //Level 3 Hierarchy
+                      WebOperatorNode branchoperator3 = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
+                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
+                      PopulatePrompts(Lvl3_GUID,oSource,branchoperator3,exp,LVL3_PA);
+                      //Level 4 Hierarchy
+                      WebOperatorNode branchoperator4 = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
+                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
+                      PopulatePrompts(Lvl4_GUID,oSource,branchoperator4,exp,LVL4_PA);
                       
                   }
 			  }
@@ -121,8 +119,33 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
     	super.preCollectData(page);
     }
     
-    
+    public static void PopulatePrompts(String LevelGUID, WebObjectSource oSource,WebOperatorNode branchoperator,
+    		WebExpression exp,String LVLX_PA ){
+    	WebObjectInfo oLvlX;
+		try {
+			oLvlX = oSource.getObject(LevelGUID,12,true);
+	        WebAttribute Hier_LvlX_Att = (WebAttribute)oLvlX;
+	        exp.createShortcutNode(Hier_LvlX_Att,branchoperator );
+            WebElementsObjectNode elementsNode = exp.createElementsObjectNode(Hier_LvlX_Att, branchoperator);
+            Hier_LvlX_Att.populate();
+            WebElements elements = Hier_LvlX_Att.getElementSource().getElements();
+            WebElement element = null;
+            for(int elem=0;elem<elements.size();elem++){
+                element = elements.get(elem);
+                System.out.println(element.getDisplayName());
+                if (LVLX_PA.contains(element.getDisplayName())){ 
+              	 System.out.println("Inside addition");
+                   elementsNode.getElements().add(element.getElementID(), element.getDisplayName());
+                }
+            }
+		} catch (WebObjectsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
-   
 
 }
