@@ -86,26 +86,27 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
                 	  WebOperatorNode root = (WebOperatorNode) exp.getRootNode();
                 	  root.setExpressionType(EnumDSSXMLExpressionType.DssXmlFilterBranchQual);
                       root.setFunction(EnumDSSXMLFunction.DssXmlFunctionAnd);
-                      WebOperatorNode leftbranchoperator = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,EnumDSSXMLFunction.DssXmlFunctionIn);
+                      WebOperatorNode leftbranchoperator = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
+                    		  EnumDSSXMLFunction.DssXmlFunctionIn);
                       //Level 1 Hierarchy
                       WebObjectInfo oLvl1 = oSource.getObject(Lvl1_GUID,12,true);
                       WebAttribute Hier_Lvl1_Att = (WebAttribute)oLvl1;
                       exp.createShortcutNode(Hier_Lvl1_Att,leftbranchoperator );
                       WebElementsObjectNode elementsNode = exp.createElementsObjectNode(Hier_Lvl1_Att, leftbranchoperator);
-                      // Get the attribute elements from the I-server
                       Hier_Lvl1_Att.populate();
                       WebElements elements = Hier_Lvl1_Att.getElementSource().getElements();
+                      
                       WebElement element = null;
-                      for(int elem=0;i<elements.size();elem++){
+                      for(int elem=0;elem<elements.size();elem++){
                           element = elements.get(elem);
                           System.out.println(element.getDisplayName());
-                          if (element.getDisplayName().equalsIgnoreCase("2017")){ 
-                        	 System.out.println("Inside addition"); 
+                          if (element.getDisplayName().equalsIgnoreCase("2015")){ 
+                        	 System.out.println("Inside addition");
                              elementsNode.getElements().add(element.getElementID(), element.getDisplayName());
                           }
-                          expPrompt.setAnswer(exp);                  
-                          prompt.answerPrompt();
                       }
+                  //    expPrompt.setAnswer(exp);                  
+                  //    prompt.answerPrompt();
                       
                   }
 			  }
