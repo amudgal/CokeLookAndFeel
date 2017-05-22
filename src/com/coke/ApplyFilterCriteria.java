@@ -58,11 +58,11 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
         String LVL2_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL2");
         String LVL3_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL3");
         String LVL4_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL4");
-        /* Test Data ***********
+        /* Test Data ***********/
         LVL1_PA = "2015~2016";
         LVL2_PA = "2016 Q1~2016 Q2";
         LVL3_PA = "Feb 2016~Apr 2016~Mar 2016";
-        LVL4_PA = "2/3/2016~4/5/2016"; */
+        LVL4_PA = "2/3/2016~4/5/2016"; 
     	RWBean rwb = (RWBean) page.getChildByClass(RWBean.class);
     	try {
     		WebObjectsFactory factory = page.getAppContext().getAppSessionManager().getActiveSession().getFactory();
@@ -105,7 +105,8 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
                       WebOperatorNode branchoperator4 = exp.createOperatorNode(EnumDSSXMLExpressionType.DssXmlFilterListQual,
                     		  EnumDSSXMLFunction.DssXmlFunctionIn);
                       PopulatePrompts(Lvl4_GUID,oSource,branchoperator4,exp,LVL4_PA);
-                      
+                      expPrompt.setAnswer(exp);                  
+                      prompt.answerPrompt();
                   }
 			  }
 			}
