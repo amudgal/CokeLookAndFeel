@@ -7,11 +7,11 @@
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
     <!-- script type="text/javascript" src="../plugins/CokeLookAndFeel/js/Nav.js"></script-->
     <link rel="stylesheet" type="text/css" href="../plugins/CokeLookAndFeel/style/NavBartheme.css">
-    
   </head>
 	<body ng-app="RnavApp">
+	<div id="container">
     <!-- Top Navigation Section --------------------------------------------------------------------------------- -->
-    <div id="nav-container">
+    <div id="nav-container" class="header">
 		<section class="navigation">
 		  <div class="nav-container">
 		    <div class="brand"><a href="#!"><img src="../plugins/CokeLookAndFeel/style/images/coke_logo.png"></img></a></div>
@@ -49,11 +49,16 @@
 		</section>
        </div>
      <!-- Top Navigation Section Ends----------------------------------------------------------------------------- -->
-        <div id="content">
+    
+      <div class="DashboardBar">
+      
+      </div>
+     <!-- Widget button section ends  ---------------------------------------------------------------------------- -->
+        <div id="content" class="content">
 			<object width=100% height=1000px>
 		              <div ng-view></div>
 		    </object>
 	    </div>
-	
+	</div>
 	</body>
 </html>

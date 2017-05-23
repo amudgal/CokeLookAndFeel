@@ -1,18 +1,28 @@
 body {
-	fint-family: Arial;
-	color: white;
+	font-family: Arial;
+	color: black;
 }
 
 #nav-container {
 	position:relative;
 	z-index:50;
+	color: white;
 }
 
 #content {
+	color: black;
 	position:relative;
-	z-index:30
+	z-index:30;
 }
-.nav-dropdown { z-index: 999; }
+
+
+.nav-dropdown { z-index: 99; }
+.DashboardBar {
+	 float: left;
+	 display: block;
+}
+
+
 ul {
 	margin: 0px;
 	padding: 0px;
@@ -48,3 +58,25 @@ ul li ul li {
 ul li:hover ul li {
 	display: block;
 }
+
+
+
+
+
+
+
+#container {
+	width:100%;
+
+}
+.header, .DashboardBar {
+	width: 100%;
+	float:left;
+	height: 80px;
+}
+.content {
+	width: 100%;
+	float: left;
+	min-height: 500px;
+}
+
