@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    
-    
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
     <!-- script type="text/javascript" src="../plugins/CokeLookAndFeel/js/Nav.js"></script-->
     <link rel="stylesheet" type="text/css" href="../plugins/CokeLookAndFeel/style/NavBartheme.css">
@@ -55,7 +53,6 @@
 		</section>
        </div>
      <!-- Top Navigation Section Ends----------------------------------------------------------------------------- -->
-    
       <div class="DashboardBar">
       <a href="../plugins/CokeLookAndFeel/html/popupWidget.html" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal">Launch Widget</a>
       <div id="myModal" class="modal fade">
@@ -73,5 +70,8 @@
 		    </object>
 	    </div>
 	</div>
+	
+	
+
 	</body>
 </html>
