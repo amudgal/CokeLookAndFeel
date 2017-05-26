@@ -37,6 +37,7 @@ import com.microstrategy.web.objects.WebOperatorNode;
 import com.microstrategy.web.objects.WebPrompt;
 import com.microstrategy.web.objects.WebPrompts;
 import com.microstrategy.web.objects.rw.RWInstance;
+import com.microstrategy.web.platform.ContainerStringCollection;
 import com.microstrategy.webapi.EnumDSSXMLExpressionType;
 import com.microstrategy.webapi.EnumDSSXMLFunction;
 
@@ -53,6 +54,13 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
     private static final String LVL4_ATTRIBUTE_GUID = "LVL4_ATTRIBUTE_GUID";
     
     public void preCollectData(PageComponent page) {
+    	page.getAppContext().getContainerServices().getCookie("");
+    	ContainerStringCollection cookies = page.getAppContext().getContainerServices().getCookieStrings();
+    	//Cookie Based Approach
+    	for(int i=0; i<cookies.getNameCount(); i++){
+    		System.out.println("Cookies: " +cookies.getName(i));
+    		System.out.println("Value:" + cookies.getStringValue(cookies.getName(i)));
+    	}
     	// Get Values of Saved Session variables.
         String LVL1_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL1");
         String LVL2_PA = page.getAppContext().getContainerServices().getHeaderValue("LVL2");
