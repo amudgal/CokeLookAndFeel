@@ -2,7 +2,7 @@
  *  Date: 6/1/2017
  *  
  * **/
-var localscope = "";
+var localscopeLastLvl = "";
 var badgePath="../plugins/CokeLookAndFeel/style/images/ccna/badges";
  
 $( document ).ready(function() {
@@ -123,6 +123,7 @@ $( document ).ready(function() {
 	    	console.log("Clicked button "+ $(this).attr('id'));
 	        console.log("Inner Tag "+ $(this).attr('src'));
 	        console.log("Last level clicked::" + lastClicked.lvl)
+	        localscopeLastLvl=lastClicked.lvl;
 	        
         }
     });
@@ -167,6 +168,11 @@ function reflectChanges(ActionArrObj){
 			$('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
 		}
 	}
+}
+
+function SaveVals(){
+
+	console.log($('img[idNo]').length + "," +localscopeLastLvl);
 }
 
 // TO-DO Save function attached to Modal save. It will save the prompts in cookies.
