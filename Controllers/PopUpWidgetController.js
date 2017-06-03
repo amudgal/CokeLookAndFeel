@@ -100,7 +100,7 @@ $( document ).ready(function() {
                     	 }
                          $("<img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
                          		 " lvl=\"" + response[i].lvl + "\"" + 
-                         		 " id=\"" + response[i].sel[j].id + "\"" +
+                         		 " idNo=\"" + response[i].sel[j].id + "\"" +
                         		 " src=\""+ badgePath +"/"+imageName+".png\">").appendTo("div#lvl"+response[i].lvl);
                      }
                  }
@@ -108,15 +108,18 @@ $( document ).ready(function() {
     $(".badgeImage").click(function(){
     	if(!($(this).attr('lvl')>5)){  // REQ1: Last level ie 6 , should not be selectable. 
 	        var image = $(this).attr('src').replace(badgePath+'/','');
+	        var activeFlag ="";
 	        if($(this).attr('src').indexOf("_GR") != -1){
 	        	console.log("Not Grey image" + image);
 	        	$(this).attr('src',badgePath+ '/'+ image.replace('_GR.png','.png'));
-	            lastClicked.lvl=$(this).attr('lvl');	
+	            lastClicked.lvl=$(this).attr('lvl');
+	            activeFlag="Y";
 	        }else{
 	        	console.log("Grey image" + image);
 	        	$(this).attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
+	        	activeFlag="N";
 	        }
-	        treeTraverse(response,$(this).attr('lvl'),$(this).attr('id'));
+	        reflectChanges(treeTraverse(response,$(this).attr('lvl'),$(this).attr('idNo'),activeFlag));
 	    	console.log("Clicked button "+ $(this).attr('id'));
 	        console.log("Inner Tag "+ $(this).attr('src'));
 	        console.log("Last level clicked::" + lastClicked.lvl)
@@ -126,21 +129,44 @@ $( document ).ready(function() {
     
 });
 
-
-// TODO Traverse the tree to find hierarchy 
-
-function treeTraverse(SrcJSON,lvl_Clicked,itmClcked){
-	console.log("::::treeTraverse(Level Clicked):::"+lvl_Clicked);
-	console.log("::::treeTraverse(Item Clicked):::"+itmClcked);
-	console.log("::::treeTraverse (JSON):::"+SrcJSON);
+var treeTraverse = function(SrcJSON,lvl_Clicked,itmClcked,activeFlag){
+	//console.log("::::treeTraverse(Level Clicked):::"+lvl_Clicked);
+	//console.log("::::treeTraverse(Item Clicked):::"+itmClcked);
+	//console.log("::::treeTraverse (JSON):::"+SrcJSON[1].lvl);
+	var JSONObjSel=[];
+	var arrObj=[];
 	//Push down logic
-	for(int i=lvl_Clicked)
-	var JSON="";
-	return JSON;
+	for(var i = 0; i < SrcJSON[lvl_Clicked].sel.length; i++){
+		if(SrcJSON[lvl_Clicked].sel[i].pl==itmClcked){
+			//console.log(SrcJSON[lvl_Clicked].sel[i].id + " Activated ??" + activeFlag);
+			item = {};
+            item["id"] = SrcJSON[lvl_Clicked].sel[i].id; 			
+		    item["flg"] = activeFlag;
+		    arrObj.push([SrcJSON[lvl_Clicked].sel[i].id,activeFlag]);
+		    JSONObjSel.push(item);
+		}
+	}
+	if(lvl_Clicked<5){
+		lvl_Clicked++;
+		for(var i=0;i<JSONObjSel.length;i++ ){
+			arrObj.push.apply(arrObj,treeTraverse(SrcJSON,lvl_Clicked,JSONObjSel[i].id,activeFlag));
+		}
+	}
+	//console.log(arrObj);
+	return arrObj;
 }
 
-function sameLevelCheck(){
-	return "";
+function reflectChanges(ActionArrObj){
+	for(var i = 0; i < ActionArrObj.length; i++){
+		//console.log(ActionArrObj[i][0] + ","+ActionArrObj[i][1]);
+		console.log($('img[idNo='+ActionArrObj[i][0]+']').attr('src'));
+		var image = $('img[idNo='+ActionArrObj[i][0]+']').attr('src').replace(badgePath+'/','');
+		if(ActionArrObj[i][1]=="Y"){
+			$('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('_GR.png','.png'));
+		}else{
+			$('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
+		}
+	}
 }
 
 // TO-DO Save function attached to Modal save. It will save the prompts in cookies.
