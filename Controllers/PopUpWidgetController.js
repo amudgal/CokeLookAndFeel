@@ -28,7 +28,7 @@ $( document ).ready(function() {
                          $("<div idDiv=\""+response[i].sel[j].nm +"\" style=\"float: left!important;display: inline!important;\"><figure><img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
                          		 " lvl=\"" + response[i].lvl + "\"" + 
                          		 " idNo=\"" + response[i].sel[j].id + "\"" +
-                         		 " style=\"max-width: 100%;height: auto;\""+
+                         		 " style=\"max-width: 100%;height: auto;margin:auto;display:block;\""+
                         		 " src=\""+ badgePath +"/"+imageName+".png\"><figcaption style=\"font-weight: bold; font-size: 60%; text-align: center; padding-top: 5px;\">"+response[i].sel[j].nm+"</figcaption><figure></div>").appendTo("div#lvl"+response[i].lvl);
                          
                      }
@@ -57,10 +57,12 @@ $( document ).ready(function() {
 	        }
 	        
         //}
+	        ShowEverything();
     });
-    
     var substringMatcher = function(strs) {
+    	//console.log(q+"  "+cb)  ;
   	  return function findMatches(q, cb) {
+  		
   	    var matches, substringRegex;
 
   	    // an array that will be populated with substring matches
@@ -75,11 +77,14 @@ $( document ).ready(function() {
   	      
   	      if (substrRegex.test(str)) {
   	        matches.push(str);
-  	        //console.log("content:"+str);
+  	        console.log("content:"+str);
   	        
   	      }
   	    });
   	    FilterSelections(matches);
+  	    //var myVal = $('.typeahead').typeahead('val');
+  	   /* var myVal = $('input[id=in]').val();
+  	    console.log(myVal);*/
   	    cb(matches);
   	  };
   	};
@@ -94,18 +99,21 @@ $( document ).ready(function() {
   	  name: 'badges',
   	  source: substringMatcher(badges)
   	});
-  	
-  	
-  function getAllBadges(){
+    function getAllBadges(){
   	var arrBadges=[];
   	for(var i = 0; i < SrcJSON.length; i++){
   		for(var j = 0; j < SrcJSON[i].sel.length; j++){
   			arrBadges.push(SrcJSON[i].sel[j].nm);
   		}
   	}
-  	console.log(arrBadges);
+  	//console.log(arrBadges);
   	return arrBadges;
   }
+    
+    $('#in').keyup(function () { if(document.getElementById('in').value ==""){
+    	ShowEverything();
+    } });
+    
 });
 
 var treeTraverse = function(SrcJSON,lvl_Clicked,itmClcked,activeFlag){
@@ -312,6 +320,36 @@ function FilterSelections(selections){
 			$('div[idDiv=\"'+selections[i] +'\"]').attr('style','\"float: left!important;display:inline!important;\"');
 		}
 }
+
+function ShowEverything(){
+	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			$('div[idDiv=\"'+SrcJSON[i].sel[j].nm +'\"]').attr('style','\"float: left!important;display:inline!important;\"');
+	  	}
+  	}
+}
+
+
+
+
+/*$('input[id=in]').focus(function() {
+    console.log('in');
+}).blur(function() {
+    console.log('out'+pointer);
+    if(!(pointer=='auto')){
+        ShowEverything();
+        $('input[id=in]').clearForm();
+    }else{
+    	console.log("pointer is "+pointer);
+    }
+
+});
+
+
+var pointer = $('*').mouseenter(function(){
+    return $(this).css('cursor') ;
+});
+*/
 
 // Unused ........ 
 /*var PopApp = angular.module('PopUpApp', []);

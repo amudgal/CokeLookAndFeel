@@ -12,6 +12,7 @@
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/bloodhound.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.bundle.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.jquery.min.js"></script>
+
     <!-- script type="text/javascript" src="../plugins/CokeLookAndFeel/js/Nav.js"></script-->
     <link rel="stylesheet" type="text/css" href="../plugins/CokeLookAndFeel/style/NavBartheme.css">
   </head>

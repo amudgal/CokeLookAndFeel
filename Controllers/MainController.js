@@ -65,6 +65,7 @@ var app = angular.module("RnavApp", ["ngRoute"]);
 	        controller: "bBooksCntrl"	
 	    });
 	    
+	    
 	});
 	
 app.controller("HomeCntrl",function($scope){

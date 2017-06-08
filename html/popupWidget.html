@@ -4,39 +4,41 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<div ng-app="PopUpApp" >
+<div ng-app="PopUpApp">
 
-	
+	<div style="background-color: #ffffff; background-size: 100% 100%;width: 100%;">
 	<div id="the-basics">
     <table>
       <tr>
          <form>
-           <input class="typeahead" type="text" placeholder="Select Badges">
+           <span><input id="in" class="typeahead tt-input" name="country_v1[query]" type="text" placeholder="Select Badges"></span>
+           <span></span>
          </form>
       </tr>
       <tr><button class="button" type="button" onclick="SaveVals()">Apply</button></tr>
       <tr><button class="button" type="button" onclick="SaveVals()">Cancel</button></tr>
     </table>
     </div>
-		<div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-	    <div id="lvl1" style="width:100px;height:100px class="w3-container"></div>
+    <div class="Select">
+		<div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+		    <div id="lvl1" class="w3-container" style="height:auto;width:fixed;display: inline-block; overflow:auto"></div>
+		</div>
+	    <div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+		    <div id="lvl2" class="w3-container" style="height:auto;width:fixed;display: inline-block; overflow:auto"></div>
+		</div>
+		<div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+			<div id="lvl3" class="w3-container" style="height:auto;width:fixed;display: inline-block; overflow:auto"></div>
+		</div>
+		<div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+			<div id="lvl4" class="w3-container" style="height:auto;width:fixed;display: inline-block; overflow:auto"></div>
+		</div>	
+		<div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+			<div id="lvl5" class="w3-container" style="height:auto;width:fixed;display: inline-block; overflow:auto"></div>
+		</div>	
+		<div id="sel" style="border:1px solid #000;padding: 20px;overflow: auto;">
+			<div id="lvl6" class="w3-container" style="height:auto;width:fixed;display: inline-block;overflow:auto"></div>
+		</div>
+	 </div>
 	</div>
-    <div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-	    <div id="lvl2" class="w3-container" style="height:auto; overflow:auto"></div>
-	</div>
-	<div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-		<div id="lvl3" class="w3-container" style="height:auto; overflow:auto"></div>
-	</div>
-	<div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-		<div id="lvl4" class="w3-container" style="height:auto; overflow:auto"></div>
-	</div>	
-	<div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-		<div id="lvl5" class="w3-container" style="height:auto; overflow:auto"></div>
-	</div>	
-	<div style="border:1px solid #000;padding: 20px;resize: both;overflow: auto;">
-		<div id="lvl6" class="w3-container" style="height:auto; overflow:auto"></div>
-	</div>
-
-	
 
 </div>
