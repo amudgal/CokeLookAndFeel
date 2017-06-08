@@ -13,9 +13,9 @@ $( document ).ready(function() {
     //TO-DO Call function to get the data from cookies.
     var response = jQuery.parseJSON( getCookieVal('Options').replace('/"/g','').replace(/'/g,'"'));
     SrcJSON = response; 
+                 
                  for(var i = 0; i < response.length; i++){
                     // console.log(response[i].lvl);
-                     
                      for(var j = 0; j < response[i].sel.length; j++){
                     	 //console.log("*************"+response[i].sel[j].nm);
                     	 var imageName ="";
@@ -25,15 +25,17 @@ $( document ).ready(function() {
                     		 if(!(response[i].sel[j].nm.indexOf("_GR") > 0))
                     		   imageName = response[i].sel[j].nm + "_GR";
                     	 }
-                         $("<img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
+                         $("<div style=\"float: left!important;display: inline!important;\"><figure><img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
                          		 " lvl=\"" + response[i].lvl + "\"" + 
                          		 " idNo=\"" + response[i].sel[j].id + "\"" +
-                        		 " src=\""+ badgePath +"/"+imageName+".png\">").appendTo("div#lvl"+response[i].lvl);
+                         		 " style=\"max-width: 100%;height: auto;\""+
+                        		 " src=\""+ badgePath +"/"+imageName+".png\"><figcaption style=\"font-weight: bold; font-size: 60%; text-align: center; padding-top: 5px;\">"+response[i].sel[j].nm+"</figcaption><figure></div>").appendTo("div#lvl"+response[i].lvl);
+                         
                      }
                  }
                  
     $(".badgeImage").click(function(){
-    	if(!($(this).attr('lvl')>5)){  // REQ1: Last level ie 6 , should not be selectable. 
+    	//if(!($(this).attr('lvl')>5)){  // REQ1: Last level ie 6 , should not be selectable. 
 	        var image = $(this).attr('src').replace(badgePath+'/','');
 	        var activeFlag ="";
 	        if($(this).attr('src').indexOf("_GR") != -1){
@@ -46,13 +48,15 @@ $( document ).ready(function() {
 	        	$(this).attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
 	        	activeFlag="N";
 	        }
-	        reflectChanges(treeTraverse(response,$(this).attr('lvl'),$(this).attr('idNo'),activeFlag));
-	    	console.log("Clicked button "+ $(this).attr('id'));
-	        console.log("Inner Tag "+ $(this).attr('src'));
-	        console.log("Last level clicked::" + lastClicked.lvl)
-	        localscopeLastLvl=lastClicked.lvl;
+	        if(!($(this).attr('lvl')>5)){
+		        reflectChanges(treeTraverse(response,$(this).attr('lvl'),$(this).attr('idNo'),activeFlag));
+		    	console.log("Clicked button "+ $(this).attr('id'));
+		        console.log("Inner Tag "+ $(this).attr('src'));
+		        console.log("Last level clicked::" + lastClicked.lvl)
+		        localscopeLastLvl=lastClicked.lvl;
+	        }
 	        
-        }
+        //}
     });
     
 });

@@ -54,10 +54,10 @@
        </div>
      <!-- Top Navigation Section Ends----------------------------------------------------------------------------- -->
       <div class="DashboardBar">
-      <a href="../plugins/CokeLookAndFeel/html/popupWidget.html" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal">Launch Widget</a>
-      <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
+      <a href="../plugins/CokeLookAndFeel/html/popupWidget.html" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal" >Launch Widget</a>
+      <div id="myModal" class="modal fade" >
+        <div class="modal-dialog" style="width:80%">
+            <div class="modal-content" >
                 <!-- Content will be loaded here from "popupWidget.html" file -->
             </div>
         </div>
