@@ -25,7 +25,7 @@ $( document ).ready(function() {
                     		 if(!(response[i].sel[j].nm.indexOf("_GR") > 0))
                     		   imageName = response[i].sel[j].nm + "_GR";
                     	 }
-                         $("<div style=\"float: left!important;display: inline!important;\"><figure><img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
+                         $("<div idDiv=\""+response[i].sel[j].nm +"\" style=\"float: left!important;display: inline!important;\"><figure><img class=\"badgeImage\" id=\""+response[i].sel[j].nm +"\"" +
                          		 " lvl=\"" + response[i].lvl + "\"" + 
                          		 " idNo=\"" + response[i].sel[j].id + "\"" +
                          		 " style=\"max-width: 100%;height: auto;\""+
@@ -59,6 +59,53 @@ $( document ).ready(function() {
         //}
     });
     
+    var substringMatcher = function(strs) {
+  	  return function findMatches(q, cb) {
+  	    var matches, substringRegex;
+
+  	    // an array that will be populated with substring matches
+  	    matches = [];
+
+  	    // regex used to determine if a string contains the substring `q`
+  	    substrRegex = new RegExp(q, 'i');
+
+  	    // iterate through the pool of strings and for any string that
+  	    // contains the substring `q`, add it to the `matches` array
+  	    $.each(strs, function(i, str) {
+  	      
+  	      if (substrRegex.test(str)) {
+  	        matches.push(str);
+  	        //console.log("content:"+str);
+  	        
+  	      }
+  	    });
+  	    FilterSelections(matches);
+  	    cb(matches);
+  	  };
+  	};
+
+  	var badges = getAllBadges(); 
+  	$('#the-basics .typeahead').typeahead({
+  	  hint: true,
+  	  highlight: true,
+  	  minLength: 1
+  	},
+  	{
+  	  name: 'badges',
+  	  source: substringMatcher(badges)
+  	});
+  	
+  	
+  function getAllBadges(){
+  	var arrBadges=[];
+  	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			arrBadges.push(SrcJSON[i].sel[j].nm);
+  		}
+  	}
+  	console.log(arrBadges);
+  	return arrBadges;
+  }
 });
 
 var treeTraverse = function(SrcJSON,lvl_Clicked,itmClcked,activeFlag){
@@ -252,6 +299,18 @@ function childrenList(SrcJSON,level,element){
 	}
 	console.log("Child List::"+ list);
 	return list;
+}
+
+function FilterSelections(selections){
+	
+		for(var i = 0; i < SrcJSON.length; i++){
+	  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+	  			$('div[idDiv=\"'+SrcJSON[i].sel[j].nm +'\"]').attr('style','display:none');
+		  	}
+	  	}
+		for(var i = 0; i< selections.length;i++){
+			$('div[idDiv=\"'+selections[i] +'\"]').attr('style','\"float: left!important;display:inline!important;\"');
+		}
 }
 
 // Unused ........ 

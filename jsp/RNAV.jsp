@@ -9,6 +9,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
+<script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/bloodhound.min.js"></script>
+<script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.jquery.min.js"></script>
     <!-- script type="text/javascript" src="../plugins/CokeLookAndFeel/js/Nav.js"></script-->
     <link rel="stylesheet" type="text/css" href="../plugins/CokeLookAndFeel/style/NavBartheme.css">
   </head>
