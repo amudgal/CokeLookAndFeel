@@ -35,7 +35,33 @@ $( document ).ready(function() {
                  }
                  
     $(".badgeImage").click(function(){
-    	//if(!($(this).attr('lvl')>5)){  // REQ1: Last level ie 6 , should not be selectable. 
+    	
+	    	//if(!($(this).attr('lvl')>5)){  // REQ1: Last level ie 6 , should not be selectable. 
+	        //------------Logic for Level 2-------------------
+	        if($(this).attr('lvl')>=2 && $(this).attr('lvl')<=5){
+	        	console.log("Logic for Level 2,3,4,5");
+	        	//step 1 Check parent.
+	        	if(!(checkParentIsChecked($(this).attr('idNo'),$(this).attr('lvl')))){
+		        	// CH  step 2 If parent not checked then clear everything
+		        	// CH  step 3 check child and reflect changes
+	        		UncheckAll();
+	        	}	
+	        }
+	        //------------Logic for Level 6-------------------
+	        
+	        if(($(this).attr('lvl')==6)){
+	        	console.log("Logic for Level 6");
+	        	//step 1 Check parent.
+	        	if(!(checkParentIsChecked($(this).attr('idNo'),$(this).attr('lvl')))){
+		        	// CH  step 2 If parent not checked then clear everything
+		        	// CH  step 3 check child and select Parent
+	        		UncheckAll();
+	        		SelectParent($(this).attr('idNo'));
+	        	}
+	        	
+	        	// CH  step 2 If parent is checked reflect changes
+	        }
+    	
 	        var image = $(this).attr('src').replace(badgePath+'/','');
 	        var activeFlag ="";
 	        if($(this).attr('src').indexOf("_GR") != -1){
@@ -48,6 +74,7 @@ $( document ).ready(function() {
 	        	$(this).attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
 	        	activeFlag="N";
 	        }
+	        
 	        if(!($(this).attr('lvl')>5)){
 		        reflectChanges(treeTraverse(response,$(this).attr('lvl'),$(this).attr('idNo'),activeFlag));
 		    	console.log("Clicked button "+ $(this).attr('id'));
@@ -331,6 +358,47 @@ function ShowEverything(){
 
 
 
+function UncheckAll(){
+	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			$('div[idDiv=\"'+SrcJSON[i].sel[j].nm +'\"]').attr('style','\"float: left!important;display:inline!important;\"');
+  			var image = $('img[idNo='+SrcJSON[i].sel[j].id +']').attr('src').replace(badgePath+'/','');
+  			if(!(image.indexOf("_GR") > 0)){
+  				$('img[idNo='+SrcJSON[i].sel[j].id+']').attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
+  			}
+	  	}
+  	}
+}
+
+
+function checkParentIsChecked(element,lvl){
+	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			if(SrcJSON[i].sel[j].id==element){
+  				if(!($('img[idNo='+SrcJSON[i].sel[j].pl +']').attr('src').indexOf('_GR') > 0)){
+  					return true;
+  				}else{
+  					return false;
+  				}
+  			}
+  			
+	  	}
+  	}
+	return false;
+}
+
+function SelectParent(element){
+	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			if(SrcJSON[i].sel[j].id==element){
+  				if(($('img[idNo='+SrcJSON[i].sel[j].pl +']').attr('src').indexOf('_GR') > 0)){
+  					var image = $('img[idNo='+SrcJSON[i].sel[j].pl +']').attr('src').replace(badgePath+'/','');
+  					$('img[idNo='+SrcJSON[i].sel[j].pl+']').attr('src',badgePath+ '/'+ image.replace('_GR.png','.png'));
+  				}	
+  			}
+  		}
+	}
+}
 
 /*$('input[id=in]').focus(function() {
     console.log('in');
