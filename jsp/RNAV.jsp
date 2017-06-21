@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-     <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
+    <script   src="../plugins/CokeLookAndFeel/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../plugins/CokeLookAndFeel/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/CokeLookAndFeel/vendors/angular/angular.min.js"></script>
+    <script src="../plugins/CokeLookAndFeel/vendors/angular-route/angular-route.min.js"></script>
+    <link rel="stylesheet" href="../plugins/CokeLookAndFeel/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/CokeLookAndFeel/vendors/bootstrap/css/bootstrap-theme.min.css">
+     <script src="../plugins/CokeLookAndFeel/vendors/angular-modal/angular-modal-service.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/ModalController.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/bloodhound.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.bundle.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="../plugins/CokeLookAndFeel/style/css/w3.css">
 <link rel="stylesheet" type="text/css" href="../plugins/CokeLookAndFeel/style/PopUpWidget.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- script type="text/javascript" src="../plugins/CokeLookAndFeel/js/Nav.js"></script-->

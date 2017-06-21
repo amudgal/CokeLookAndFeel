@@ -94,6 +94,7 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
 			  String Lvl4_GUID = (String) props.getObject(LVL4_ATTRIBUTE_GUID);
 			  for(int i=0;i<prompts.size();i++){
 				  WebPrompt prompt = prompts.get(i);
+				  System.out.println("Prompt::" + prompt.getDisplayName());
 				  //Match the prompt we need to populate.
                   if(PromptGUID.equalsIgnoreCase(prompt.getID())){
                 	  //System.out.println("Good Hit" + prompt.getPromptType());

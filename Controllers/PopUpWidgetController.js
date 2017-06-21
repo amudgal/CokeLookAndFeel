@@ -12,6 +12,7 @@ $( document ).ready(function() {
     console.log( "ready!");
     //TO-DO Call function to get the data from cookies.
     var response = jQuery.parseJSON( getCookieVal('Options').replace('/"/g','').replace(/'/g,'"'));
+    console.log(response);
     SrcJSON = response; 
                  
                  for(var i = 0; i < response.length; i++){
@@ -190,7 +191,7 @@ function reflectChanges(ActionArrObj){
 function SaveVals(){
      
 	console.log($('img[idNo]').length + "," +localscopeLastLvl);
-	document.cookie = "ctracker="+localscopeLastLvl+"; path=/";
+	//document.cookie = "ctracker="+localscopeLastLvl+"; path=/";
 	alert("Changes Applied");
 	document.getElementById('nav-container').focus();
 	formatAnswer(SrcJSON,1);
@@ -221,12 +222,14 @@ function getCookieVal(cname) {
 var formatAnswer = function(SrcJSON,lvl){
 	var JSONObjSel=[];
 	var arrObj=[];
+	var finalString ="";
 	//Push down logic
 	var strBuilder = "";
 	var strBuilder6="";
 	var strBuilder5="";
 	var strBuilder4="";
 	var strBuilder3="";
+	var topChain="1";
 	for(var i = 0; i < SrcJSON[lvl].sel.length; i++){
 		if(!($('img[idNo='+SrcJSON[lvl].sel[i].id +']').attr('src').indexOf('_GR') > 0) ){
 			
@@ -268,6 +271,7 @@ var formatAnswer = function(SrcJSON,lvl){
 				//										  console.log("Level 6:::"+ SrcJSON[lvl+4].sel[m].id + ' ' + $('img[idNo='+SrcJSON[lvl+4].sel[m].id +']').attr('src'));
 														  console.log("-------------------------------"+strBuilder6);
 														  selections.push(strBuilder6);
+														  finalString = finalString + strBuilder6 + "\n";
 													  }	 
 													  strBuilder6="";
 													  console.log(strBuilder5);
@@ -275,6 +279,7 @@ var formatAnswer = function(SrcJSON,lvl){
 											  }else{
 												  console.log("-------------------------------"+strBuilder5);
 												  selections.push(strBuilder5);
+												  finalString = finalString + strBuilder5 + "\n";
 											  }
 										  }	
 										  strBuilder5="";
@@ -284,6 +289,7 @@ var formatAnswer = function(SrcJSON,lvl){
 								  }else{
 									  console.log("-------------------------------"+strBuilder4);
 									  selections.push(strBuilder4);
+									  finalString = finalString + strBuilder4 + "\n";
 								  }
 							  }
 							  strBuilder4="";
@@ -293,7 +299,7 @@ var formatAnswer = function(SrcJSON,lvl){
 					  }else{
 						  console.log("-------------------------------"+strBuilder3);
 						  selections.push(strBuilder3);
-						  
+						  finalString = finalString + strBuilder3 + "\n";
 					  }
 
 					}
@@ -305,6 +311,7 @@ var formatAnswer = function(SrcJSON,lvl){
 				// Level 2 Child doesnt exist
 				console.log("-------------------------------"+strBuilder);
 				selections.push(strBuilder);
+				finalString = finalString + strBuilder + "\n";
 			}
 		}
 		strBuilder="";
@@ -315,8 +322,69 @@ var formatAnswer = function(SrcJSON,lvl){
 			arrObj.push.apply(arrObj,treeTraverse(SrcJSON,lvl_Clicked,JSONObjSel[i].id,activeFlag));
 		}
 	}*/
-	console.log();
+	console.log(finalString);
 	return arrObj;
+}
+
+function createExclusionList(){
+	var lvl=0;
+	var arrExclusion=[];
+	var topLevel="1";
+	var chain="";
+	do{
+		for(var i = 0; i < SrcJSON[lvl].sel.length; i++){
+			for(var j = 0; j < SrcJSON[lvl].sel.length; j++){
+			   if($('img[idNo='+SrcJSON[lvl].sel[j].id +']').attr('src').indexOf('_GR') > 0){
+				   if($.inArray(SrcJSON[lvl].sel[j].id, arrExclusion)== -1){
+					   chain = findParentChain(SrcJSON[lvl].sel[j].id,SrcJSON)+ '\n';
+					   //console.log(chain);
+					   arrExclusion.push(SrcJSON[lvl].sel[j].id);
+				   }
+				   
+			   }else{
+				   if(topLevel=="1"){
+					   topLevel=lvl+1;
+					   document.cookie = "ctracker="+topLevel+"; path=/";
+				   }
+			   }	
+			}
+		}		
+		lvl++;
+	}while(lvl<6)
+    console.log(topLevel);
+}
+
+function findParentChain(element,SrcJSON){
+	var level =  Math.round(element/100);
+	console.log(level + " " + element);
+	var chain="|";
+	for(var i=0;i < SrcJSON[level-1].sel.length; i++){
+		console.log('loop elem:: '+SrcJSON[level-1].sel[i].id);
+		if(SrcJSON[level-1].sel[i].id==element){
+			console.log(element + ' Found- Loop started Parent is ::' + SrcJSON[level-1].sel[i].pl );
+	        var parent=SrcJSON[level-1].sel[i].pl;
+	        var elem = element;
+			if(parent!='000'){
+				do{ 
+					level--;
+					for(var j=0;j< SrcJSON[level-1].sel.length;j++){
+						if(SrcJSON[level-1].sel[j].pl=='000'){
+							break;	
+						}
+						if(elem==SrcJSON[level-1].sel[j].id){
+							chain = chain + '.' + SrcJSON[level-1].sel[j].id;
+							console.log(chain);
+							elem=SrcJSON[level-1].sel[j].pl;
+						}
+						
+					}
+					//chain = chain + '.' + SrcJSON[level].sel[i].pl;
+				}while(level>1)	
+			}
+			
+		}
+	}
+	return chain;
 }
 
 function doesChildExist(SrcJSON,level,element){
