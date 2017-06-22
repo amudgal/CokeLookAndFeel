@@ -75,9 +75,12 @@ $( document ).ready(function() {
 	            lastClicked.lvl=$(this).attr('lvl');
 	            activeFlag="Y";
 	        }else{
-	        	console.log("Grey image" + image);
-	        	$(this).attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
-	        	activeFlag="N";
+	        	if($(this).attr('src').indexOf("_GR") == -1){
+	        		console.log("Grey image" + image);
+		        	$(this).attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
+		        	activeFlag="N";	
+	        	}
+	        	
 	        }
 	       
 	        if(!($(this).attr('lvl')>5)){
@@ -183,7 +186,9 @@ function reflectChanges(ActionArrObj){
 		if(ActionArrObj[i][1]=="Y" && (image.indexOf("_GR") != -1)){  
 			$('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('_GR.png','.png'));
 		}else{
-			$('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));
+			 if(image.indexOf("_GR") == -1){
+				 $('img[idNo='+ActionArrObj[i][0]+']').attr('src',badgePath+ '/'+ image.replace('.png','_GR.png'));	 
+			 }
 		}
 	}
 }
@@ -336,7 +341,7 @@ function createExclusionList(){
 			for(var j = 0; j < SrcJSON[lvl].sel.length; j++){
 			   if($('img[idNo='+SrcJSON[lvl].sel[j].id +']').attr('src').indexOf('_GR') > 0){
 				   if($.inArray(SrcJSON[lvl].sel[j].id, arrExclusion)== -1){
-					   chain = findParentChain(SrcJSON[lvl].sel[j].id,SrcJSON)+ '\n';
+					   chain = chain + findParentChain(SrcJSON[lvl].sel[j].id,SrcJSON)+ 'M';
 					   //console.log(chain);
 					   arrExclusion.push(SrcJSON[lvl].sel[j].id);
 				   }
@@ -344,6 +349,7 @@ function createExclusionList(){
 			   }else{
 				   if(topLevel=="1"){
 					   topLevel=lvl+1;
+					   delete_cookie('ctracker');
 					   document.cookie = "ctracker="+topLevel+"; path=/";
 				   }
 			   }	
@@ -351,39 +357,51 @@ function createExclusionList(){
 		}		
 		lvl++;
 	}while(lvl<6)
+	console.log(chain);	
+	delete_cookie('exclude');
+	document.cookie = "exclude="+encodeURIComponent(chain)+"; path=/";	
     console.log(topLevel);
 }
-
+var delete_cookie = function(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
 function findParentChain(element,SrcJSON){
 	var level =  Math.round(element/100);
-	console.log(level + " " + element);
-	var chain="|";
+	//console.log(level + " " + element);
+	var chain="";
 	for(var i=0;i < SrcJSON[level-1].sel.length; i++){
-		console.log('loop elem:: '+SrcJSON[level-1].sel[i].id);
+		//console.log('loop elem:: '+SrcJSON[level-1].sel[i].id);
 		if(SrcJSON[level-1].sel[i].id==element){
-			console.log(element + ' Found- Loop started Parent is ::' + SrcJSON[level-1].sel[i].pl );
+			//console.log(element + ' Found- Loop started Parent is ::' + SrcJSON[level-1].sel[i].pl + ' Level ::' +level );
 	        var parent=SrcJSON[level-1].sel[i].pl;
 	        var elem = element;
-			if(parent!='000'){
-				do{ 
-					level--;
-					for(var j=0;j< SrcJSON[level-1].sel.length;j++){
-						if(SrcJSON[level-1].sel[j].pl=='000'){
-							break;	
+	        var lvl = level;
+			do{ 
+				lvl--;
+				for(var j=0;j< SrcJSON[lvl].sel.length;j++){
+					if(SrcJSON[lvl].sel[j].pl=='000'){
+						if(chain==''){
+							chain='100';
+						}else{
+							chain='100.'+chain;	
 						}
-						if(elem==SrcJSON[level-1].sel[j].id){
-							chain = chain + '.' + SrcJSON[level-1].sel[j].id;
-							console.log(chain);
-							elem=SrcJSON[level-1].sel[j].pl;
-						}
-						
+						break;	
 					}
+					if(elem==SrcJSON[lvl].sel[j].id){
+						if(chain!=''){
+							chain = SrcJSON[lvl].sel[j].id + '.' + chain ;	
+						}else{
+							chain = SrcJSON[lvl].sel[j].id;
+						}
+						elem=SrcJSON[lvl].sel[j].pl;
+					}
+						
+				}
 					//chain = chain + '.' + SrcJSON[level].sel[i].pl;
-				}while(level>1)	
-			}
-			
+			}while(lvl>0)	
 		}
 	}
+	//console.log(chain);
 	return chain;
 }
 
