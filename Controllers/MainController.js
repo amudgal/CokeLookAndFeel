@@ -1,7 +1,7 @@
 /**
  * Created by amitmudgal on 5/22/17.
  */
-var app = angular.module("RnavApp", ["ngRoute"]);
+var app = angular.module("RnavApp", ["ngRoute","angularModalService"]);
 	app.config(function($routeProvider) {
 	    $routeProvider
 	    .when("/", {
@@ -65,6 +65,7 @@ var app = angular.module("RnavApp", ["ngRoute"]);
 	        controller: "bBooksCntrl"	
 	    });
 	    
+	    
 	});
 	
 app.controller("HomeCntrl",function($scope){
@@ -126,4 +127,18 @@ app.controller("sIncidenceCntrl",function($scope){
 app.controller("bBooksCntrl",function($scope){
     $scope.docName ="Brefing Books";
  });
+app.controller("MainController",function($scope, ModalService){
+    $scope.show = function() {
+        ModalService.showModal({
+            templateUrl: '../plugins/CokeLookAndFeel/html/PopUp.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    };
+})
+
 
