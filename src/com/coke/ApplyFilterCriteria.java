@@ -173,9 +173,9 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
       					String originName = wep.getOrigin().getName();
       					String elemName = elements.get(e).getDisplayName();
       					System.out.println("originName: " + originName + "; elemName: " + elemName);
-      					if (originName.equals("Hierarchy")) {
+      					if (originName.equals("Exclusion Level")) {
       						for(int j=0;j< exclusions.length;j++){
-      							System.out.println(exclusions[j] + "   " + );
+      							//System.out.println(exclusions[j]);
       							if(elemName.equals(exclusions[j])){
       								we.add(elements.get(e).getElementID());		
       							}
