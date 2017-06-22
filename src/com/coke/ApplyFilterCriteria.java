@@ -68,9 +68,11 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
     	for(int i=0; i<cookies.getNameCount(); i++){
     		if(cookies.getName(i).equalsIgnoreCase("ctracker")){
     			selectedLevel=cookies.getStringValue(cookies.getName(i));
+    			System.out.println(selectedLevel);
     		}
     		if(cookies.getName(i).equalsIgnoreCase("exclude")){
     			exclusions=cookies.getStringValue(cookies.getName(i)).split("M");
+    			System.out.println(exclusions);
     		}
     	}
     	//Storing values in cookies
@@ -177,7 +179,8 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
       						for(int j=0;j< exclusions.length;j++){
       							//System.out.println(exclusions[j]);
       							if(elemName.equals(exclusions[j])){
-      								we.add(elements.get(e).getElementID());		
+      								we.add(elements.get(e).getElementID());	
+      								System.out.println(elements.get(e).getElementID());
       							}
       						}
       					}
@@ -187,7 +190,7 @@ public class ApplyFilterCriteria extends AbstractAppAddOn {
                   }
                   
 			  }
-			  prompts.answerPrompts();
+			//  prompts.answerPrompts();
 			}
 		} catch (WebObjectsException e) {
 			// TODO Auto-generated catch block
