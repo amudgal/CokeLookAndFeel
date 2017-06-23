@@ -128,7 +128,9 @@ app.controller("bBooksCntrl",function($scope){
     $scope.docName ="Brefing Books";
  });
 app.controller("MainController",function($scope, ModalService){
+    $scope.pathsNew=" OPS Change";
     $scope.show = function() {
+	
         ModalService.showModal({
             templateUrl: '../plugins/CokeLookAndFeel/html/PopUp.html',
             controller: "ModalController"

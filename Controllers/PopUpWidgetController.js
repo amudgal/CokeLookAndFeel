@@ -332,6 +332,9 @@ var formatAnswer = function(SrcJSON,lvl){
 }
 
 function createExclusionList(){
+	console.log('Top Level::'+findTopLevel());
+	delete_cookie('topLvl');
+	document.cookie = "topLvl="+encodeURIComponent(findTopLevel())+"; path=/";
 	var lvl=0;
 	var arrExclusion=[];
 	var topLevel="1";
@@ -491,3 +494,20 @@ function SelectParent(element){
 }
 
           
+function findTopLevel(){
+	var lvl=0;
+	var retString ="";
+	for(var i = 0; i < SrcJSON.length; i++){
+  		for(var j = 0; j < SrcJSON[i].sel.length; j++){
+  			if(!($('img[idNo='+SrcJSON[i].sel[j].id +']').attr('src').indexOf('_GR') > 0)){
+  				console.log(SrcJSON[i].sel[j].id);
+  				retString=findParentChain(SrcJSON[i].sel[j].id,SrcJSON);
+  				break;
+   			}
+	  	}
+  		if(retString!=''){
+				break;
+		}
+  	}
+	return retString;
+}

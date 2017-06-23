@@ -10,6 +10,7 @@
      <script src="../plugins/CokeLookAndFeel/vendors/angular-modal/angular-modal-service.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/ModalController.js"></script>
+    <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/js/Support.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/bloodhound.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.bundle.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.jquery.min.js"></script>
@@ -62,7 +63,8 @@
      <!-- Top Navigation Section Ends----------------------------------------------------------------------------- -->
       <div class="DashboardBar">
       <!--  a class="btn btn-default" href ng-click="show()">Launch Widget</a-->
-      <a href="../plugins/CokeLookAndFeel/html/popupWidget.html" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal" >Launch Widget</a>
+      <a href="../plugins/CokeLookAndFeel/html/popupWidget.html" data-toggle="modal" data-target="#myModal" ><img src="../plugins/CokeLookAndFeel/style/images/ccna/badges/CCNA.png">{{pathsNew}}</img></a>
+      
       <div id="myModal" class="modal fade" >
         <div class="modal-dialog" style="width:80%">
             <div class="modal-content" >
