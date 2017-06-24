@@ -10,7 +10,6 @@
      <script src="../plugins/CokeLookAndFeel/vendors/angular-modal/angular-modal-service.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/MainController.js"></script>
     <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/ModalController.js"></script>
-    <script type="text/javascript" src="../plugins/CokeLookAndFeel/Controllers/js/Support.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/bloodhound.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.bundle.min.js"></script>
 <script type="text/javascript" src="../plugins/CokeLookAndFeel/vendors/typeahead/typeahead.jquery.min.js"></script>
